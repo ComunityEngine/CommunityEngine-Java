@@ -1,4 +1,4 @@
 # ComunityEngine-Java
 ComunityEngine written in java. 
 
-To contribute click <a href="https://github.com/ComunityEngine/How-To-Join-README-">here</a>
+To contribute or help develop then click <a href="https://github.com/ComunityEngine/How-To-Join-README-">here</a>
