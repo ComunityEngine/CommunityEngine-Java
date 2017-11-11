@@ -11,6 +11,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 
 import ce.engine.Util;
+import ce.engine.maths.Matrix4f;
 import ce.engine.maths.Vector3f;
 
 public abstract class Shader {
@@ -57,6 +58,12 @@ public abstract class Shader {
 	 */
 	public void unbind() {
 		GL20.glUseProgram(0);
+	}
+	
+	public void loadMatrix(int location, Matrix4f matrix) {
+		matrix.store(matrixBuffer);
+		matrixBuffer.flip();
+		GL20.glUniformMatrix4fv(location, false, matrixBuffer);
 	}
 
 	public void loadVector3f(int location, Vector3f vector) {
