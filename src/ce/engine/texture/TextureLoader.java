@@ -10,11 +10,14 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL14;
 import org.lwjgl.opengl.GL30;
 
+import ce.engine.Util;
+
 public class TextureLoader {
 	
 	public static Texture loadTexture(String textureFile) {
 		try {
-			InputStream in = TextureLoader.class.getResourceAsStream("/" + textureFile);
+//			InputStream in = TextureLoader.class.getResourceAsStream("/" + textureFile);
+			InputStream in = Util.loadInternal(textureFile);
 			BufferedImage image = ImageIO.read(in);
 			
 			int[] pixels = new int[image.getWidth() * image.getHeight()];
@@ -47,6 +50,8 @@ public class TextureLoader {
 			return new Texture(textureID, image.getWidth(), image.getHeight());
 		} catch (Exception e) {
 			e.printStackTrace();
+			
+			return null;
 		}
 	}
 
