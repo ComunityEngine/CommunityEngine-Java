@@ -30,7 +30,7 @@ public abstract class Shader {
 
 		createProgram();
 	}
-
+	
 	private void createProgram() {
 		program = GL20.glCreateProgram();
 		GL20.glAttachShader(program, vertex);
@@ -90,31 +90,32 @@ public abstract class Shader {
 	 */
 	private int loadShader(String fileName, int type) {
 		StringBuilder sb = new StringBuilder();
-
+		Exception exception = null;
 		try {
 			InputStream in = Util.loadInternal(fileName);
 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
 
 			String line;
-			String previousString = "";
-			String lastString = "";
 			while ((line = br.readLine()) != null) {
-				for (String s : line.split("\\s+")) {
-					for (String s2 : s.split(";")) {
-						if (lastString.equals("uniform")) {
-							String uniform = s2.replace(" ", "").replace(";", "");
-							uniformsDetection.add(uniform);
-						}
-						lastString = previousString;
-						previousString = s2;
-					}
-				}
 				sb.append(line).append("\n");
 			}
 			br.close();
 		} catch (Exception e) {
-			e.printStackTrace();
-			return -1;
+			exception = e;
+			sb.append(fileName);
+		}
+		
+		String previousString = "";
+		String lastString = "";
+		for (String s : sb.toString().split("\\s+")) {
+			for (String s2 : s.split(";")) {
+				if (lastString.equals("uniform")) {
+					String uniform = s2.replace(" ", "").replace(";", "");
+					uniformsDetection.add(uniform);
+				}
+				lastString = previousString;
+				previousString = s2;
+			}
 		}
 		
 		int shaderID = GL20.glCreateShader(type);
@@ -122,6 +123,7 @@ public abstract class Shader {
 		GL20.glCompileShader(shaderID);
 		
 		if(GL20.glGetShaderi(shaderID, GL20.GL_COMPILE_STATUS) == GL11.GL_FALSE) {
+			exception.printStackTrace();
 			System.err.println(GL20.glGetShaderInfoLog(shaderID));
 		}
 		

@@ -1,5 +1,7 @@
 package ce.engine.texture;
 
+import org.lwjgl.opengl.GL11;
+
 public class Texture {
 	private int ID;
 	private int width;
@@ -21,5 +23,9 @@ public class Texture {
 
 	public int getHeight() {
 		return height;
+	}
+	
+	public void dispose() {
+		GL11.glDeleteTextures(ID);
 	}
 }
