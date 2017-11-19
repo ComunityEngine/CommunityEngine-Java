@@ -9,6 +9,7 @@ import org.lwjgl.opengl.GL30;
 import ce.core.Camera;
 import ce.core.Util;
 import ce.core.maths.Matrix4f;
+import ce.core.maths.Transform;
 import ce.core.maths.Vector3f;
 import ce.core.shader.Shader;
 
@@ -60,20 +61,20 @@ public class Mesh {
 
 	public void render(Shader shader, int modelMatrix, GameObject object, Camera camera) {
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, object.getTextureID());
-		Matrix4f transformationMatrix = createTransformationMatrix(object.getPosition(), object.getRotation(), object.getScale());
+		Matrix4f transformationMatrix = createTransformationMatrix(object.getTransform());
 		shader.loadMatrix(modelMatrix, transformationMatrix);
 		object.update();
 		GL11.glDrawElements(GL11.GL_TRIANGLES, indicesSize, GL11.GL_UNSIGNED_INT, 0);
 	}
 
-	private Matrix4f createTransformationMatrix(Vector3f translation, Vector3f rotation, Vector3f scale) {
+	private Matrix4f createTransformationMatrix(Transform transform) {
 		Matrix4f matrix = new Matrix4f();
 		matrix.setIdentity();
-		Matrix4f.translate(translation, matrix, matrix);
-		Matrix4f.rotate((float) Math.toRadians(rotation.x), new Vector3f(1, 0, 0), matrix, matrix);
-		Matrix4f.rotate((float) Math.toRadians(rotation.y), new Vector3f(0, 1, 0), matrix, matrix);
-		Matrix4f.rotate((float) Math.toRadians(rotation.z), new Vector3f(0, 0, 1), matrix, matrix);
-		Matrix4f.scale(new Vector3f(scale.x, scale.y, scale.z), matrix, matrix);
+		Matrix4f.translate(transform.position, matrix, matrix);
+		Matrix4f.rotate((float) Math.toRadians(transform.rotation.x), new Vector3f(1, 0, 0), matrix, matrix);
+		Matrix4f.rotate((float) Math.toRadians(transform.rotation.y), new Vector3f(0, 1, 0), matrix, matrix);
+		Matrix4f.rotate((float) Math.toRadians(transform.rotation.z), new Vector3f(0, 0, 1), matrix, matrix);
+		Matrix4f.scale(new Vector3f(transform.scale.x, transform.scale.y, transform.scale.z), matrix, matrix);
 		return matrix;
 	}
 

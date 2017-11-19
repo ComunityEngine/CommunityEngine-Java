@@ -8,6 +8,7 @@ import ce.core.graphics.Mesh;
 import ce.core.input.Input;
 import ce.core.input.Key;
 import ce.core.input.State;
+import ce.core.maths.Transform;
 import ce.core.maths.Vector3f;
 import ce.core.shader.Default3DShader;
 import ce.core.texture.Texture;
@@ -53,7 +54,7 @@ public class EngineTester {
 		Mesh mesh = new Mesh();
 		mesh.add(vertices, texCoords, indices);
 
-		GameObject object = new GameObject(new Vector3f(0), new Vector3f(0), new Vector3f(1)) {
+		GameObject object = new GameObject(new Transform(new Vector3f(0), new Vector3f(0), new Vector3f(1))) {
 			public void update() {
 
 			}
