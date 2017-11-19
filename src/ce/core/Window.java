@@ -32,6 +32,14 @@ public class Window {
 		return window;
 	}
 	
+	public static void enableDepthBuffer() {
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
+	}
+
+	public static void disableDepthBuffer() {
+		GL11.glDisable(GL11.GL_DEPTH_TEST);
+	}
+	
 	public static boolean isCloseRequested(long window) {
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 		return !GLFW.glfwWindowShouldClose(window);

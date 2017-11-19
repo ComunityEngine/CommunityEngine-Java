@@ -17,7 +17,10 @@ public class EngineTester {
 
 	public static void main(String[] args) {
 		System.out.println(Version.getEngineVersion());
+		
 		long window = Window.createWindow(800, 600, "[CE] CommunityEngine");
+		Window.enableDepthBuffer();
+		
 		Camera camera = new Camera(window, 70f, 0.1f, 1000f);
 		camera.setPosition(new Vector3f(0, 0, 2));
 		Default3DShader shader = new Default3DShader();
