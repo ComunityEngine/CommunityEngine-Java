@@ -1,6 +1,7 @@
 package ce.core.test;
 
 import ce.core.Camera;
+import ce.core.Time;
 import ce.core.Version;
 import ce.core.Window;
 import ce.core.graphics.GameObject;
@@ -18,10 +19,10 @@ public class EngineTester {
 
 	public static void main(String[] args) {
 		System.out.println(Version.getEngineVersion());
-		
+
 		long window = Window.createWindow(800, 600, "[CE] CommunityEngine");
 		Window.enableDepthBuffer();
-		
+
 		Camera camera = new Camera(window, 70f, 0.1f, 1000f);
 		camera.setPosition(new Vector3f(0, 0, 2));
 		Default3DShader shader = new Default3DShader();
@@ -64,7 +65,27 @@ public class EngineTester {
 		while (Window.isCloseRequested(window)) {
 			if (Input.getKey(window, Key.KEY_ESCAPE) == State.PRESS) {
 				break;
-			} else if (Input.getKey(window, Key.KEY_E) == State.RELEASE) {
+			}
+
+			float SPEED = 0.01f;
+			if (Input.getKey(window, Key.KEY_W) == State.PRESS) {
+				camera.getPosition().x += Math.sin(camera.getYaw() * Math.PI / 180) * SPEED; // * Time.getDelta();
+				camera.getPosition().z += -Math.cos(camera.getYaw() * Math.PI / 180) * SPEED; // * Time.getDelta();
+			}
+
+			if (Input.getKey(window, Key.KEY_S) == State.PRESS) {
+				camera.getPosition().x -= Math.sin(camera.getYaw() * Math.PI / 180) * SPEED; // * Time.getDelta();
+				camera.getPosition().z -= -Math.cos(camera.getYaw() * Math.PI / 180) * SPEED; // * Time.getDelta();
+			}
+
+			if (Input.getKey(window, Key.KEY_A) == State.PRESS) {
+				camera.getPosition().x += Math.sin((camera.getYaw() - 90) * Math.PI / 180) * SPEED; // * Time.getDelta();
+				camera.getPosition().z += -Math.cos((camera.getYaw() - 90) * Math.PI / 180) * SPEED; // * Time.getDelta();
+			}
+
+			if (Input.getKey(window, Key.KEY_D) == State.PRESS) {
+				camera.getPosition().x += Math.sin((camera.getYaw() + 90) * Math.PI / 180) * SPEED; // * Time.getDelta();
+				camera.getPosition().z += -Math.cos((camera.getYaw() + 90) * Math.PI / 180) * SPEED; // * Time.getDelta();
 			}
 
 			shader.bind();
