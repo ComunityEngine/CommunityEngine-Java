@@ -1,8 +1,7 @@
 package ce.core.test;
 
-import org.lwjgl.glfw.GLFW;
-
 import ce.core.Camera;
+import ce.core.Version;
 import ce.core.Window;
 import ce.core.graphics.GameObject;
 import ce.core.graphics.Mesh;
@@ -17,6 +16,7 @@ import ce.core.texture.TextureLoader;
 public class EngineTester {
 
 	public static void main(String[] args) {
+		System.out.println(Version.getEngineVersion());
 		long window = Window.createWindow(800, 600, "[CE] CommunityEngine");
 		Camera camera = new Camera(window, 70f, 0.1f, 1000f);
 		camera.setPosition(new Vector3f(0, 0, 2));
@@ -58,20 +58,11 @@ public class EngineTester {
 		object.setTextureID(defaultTexture.getID());
 
 		while (Window.isCloseRequested(window)) {
-//			int state = GLFW.glfwGetKey(window, GLFW.GLFW_KEY_E);
-//			System.out.println(state);
-//			if(state == GLFW.GLFW_PRESS) {
-//				System.out.println("PRESS");
-//			}
-//			if(state == GLFW.GLFW_RELEASE) {
-//				System.out.println("RELEASE");
-//			}
-			
-			if(Input.getKey(window, Key.KEY_ESCAPE) == State.PRESS) {
+			if (Input.getKey(window, Key.KEY_ESCAPE) == State.PRESS) {
 				break;
-			}else if(Input.getKey(window, Key.KEY_E) == State.RELEASE) {
+			} else if (Input.getKey(window, Key.KEY_E) == State.RELEASE) {
 			}
-			
+
 			shader.bind();
 			shader.loadViewMatrix(camera);
 			{
