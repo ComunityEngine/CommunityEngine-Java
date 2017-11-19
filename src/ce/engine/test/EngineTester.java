@@ -1,9 +1,14 @@
 package ce.engine.test;
 
+import org.lwjgl.glfw.GLFW;
+
 import ce.engine.Camera;
 import ce.engine.Window;
 import ce.engine.graphics.GameObject;
 import ce.engine.graphics.Mesh;
+import ce.engine.input.Input;
+import ce.engine.input.Key;
+import ce.engine.input.State;
 import ce.engine.maths.Vector3f;
 import ce.engine.shader.Default3DShader;
 import ce.engine.texture.Texture;
@@ -53,6 +58,23 @@ public class EngineTester {
 		object.setTextureID(defaultTexture.getID());
 
 		while (Window.isCloseRequested(window)) {
+//			int state = GLFW.glfwGetKey(window, GLFW.GLFW_KEY_E);
+//			System.out.println(state);
+//			if(state == GLFW.GLFW_PRESS) {
+//				System.out.println("PRESS");
+//			}
+//			if(state == GLFW.GLFW_RELEASE) {
+//				System.out.println("RELEASE");
+//			}
+			
+			if(Input.getKey(window, Key.KEY_E) == State.PRESS) {
+				System.out.println("PRESS");
+			}else if(Input.getKey(window, Key.KEY_E) == State.RELEASE) {
+				System.out.println("Release");
+			}else if(Input.getKey(window, Key.KEY_UNKNOWN) == State.UNKNOWN) {
+				System.out.println("UNKNOWN");
+			}
+			
 			shader.bind();
 			shader.loadViewMatrix(camera);
 			{
