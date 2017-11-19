@@ -1,4 +1,4 @@
-package ce.engine.input;
+package ce.core.input;
 
 import org.lwjgl.glfw.GLFW;
 

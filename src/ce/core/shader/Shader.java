@@ -1,4 +1,4 @@
-package ce.engine.shader;
+package ce.core.shader;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -10,9 +10,9 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 
-import ce.engine.Util;
-import ce.engine.maths.Matrix4f;
-import ce.engine.maths.Vector3f;
+import ce.core.Util;
+import ce.core.maths.Matrix4f;
+import ce.core.maths.Vector3f;
 
 public abstract class Shader {
 

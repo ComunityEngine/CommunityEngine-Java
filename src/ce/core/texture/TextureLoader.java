@@ -1,4 +1,4 @@
-package ce.engine.texture;
+package ce.core.texture;
 
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
@@ -10,7 +10,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL14;
 import org.lwjgl.opengl.GL30;
 
-import ce.engine.Util;
+import ce.core.Util;
 
 public class TextureLoader {
 	

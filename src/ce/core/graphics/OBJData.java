@@ -1,4 +1,4 @@
-package ce.engine.graphics;
+package ce.core.graphics;
 
 public class OBJData {
 	

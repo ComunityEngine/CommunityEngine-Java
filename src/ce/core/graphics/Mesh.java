@@ -1,4 +1,4 @@
-package ce.engine.graphics;
+package ce.core.graphics;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
@@ -6,11 +6,11 @@ import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
-import ce.engine.Camera;
-import ce.engine.Util;
-import ce.engine.maths.Matrix4f;
-import ce.engine.maths.Vector3f;
-import ce.engine.shader.Shader;
+import ce.core.Camera;
+import ce.core.Util;
+import ce.core.maths.Matrix4f;
+import ce.core.maths.Vector3f;
+import ce.core.shader.Shader;
 
 public class Mesh {
 

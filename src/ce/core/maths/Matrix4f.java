@@ -1,4 +1,4 @@
-package ce.engine.maths;
+package ce.core.maths;
 
 import java.nio.FloatBuffer;
 

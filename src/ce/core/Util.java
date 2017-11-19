@@ -1,4 +1,4 @@
-package ce.engine;
+package ce.core;
 
 import java.io.InputStream;
 import java.nio.FloatBuffer;

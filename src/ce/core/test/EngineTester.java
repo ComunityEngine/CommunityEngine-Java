@@ -1,18 +1,18 @@
-package ce.engine.test;
+package ce.core.test;
 
 import org.lwjgl.glfw.GLFW;
 
-import ce.engine.Camera;
-import ce.engine.Window;
-import ce.engine.graphics.GameObject;
-import ce.engine.graphics.Mesh;
-import ce.engine.input.Input;
-import ce.engine.input.Key;
-import ce.engine.input.State;
-import ce.engine.maths.Vector3f;
-import ce.engine.shader.Default3DShader;
-import ce.engine.texture.Texture;
-import ce.engine.texture.TextureLoader;
+import ce.core.Camera;
+import ce.core.Window;
+import ce.core.graphics.GameObject;
+import ce.core.graphics.Mesh;
+import ce.core.input.Input;
+import ce.core.input.Key;
+import ce.core.input.State;
+import ce.core.maths.Vector3f;
+import ce.core.shader.Default3DShader;
+import ce.core.texture.Texture;
+import ce.core.texture.TextureLoader;
 
 public class EngineTester {
 
@@ -67,10 +67,9 @@ public class EngineTester {
 //				System.out.println("RELEASE");
 //			}
 			
-			if(Input.getKey(window, Key.KEY_E) == State.PRESS) {
-				System.out.println("PRESS");
+			if(Input.getKey(window, Key.KEY_ESCAPE) == State.PRESS) {
+				break;
 			}else if(Input.getKey(window, Key.KEY_E) == State.RELEASE) {
-				System.out.println("Release");
 			}
 			
 			shader.bind();

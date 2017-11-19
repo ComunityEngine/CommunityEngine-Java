@@ -1,12 +1,12 @@
-package ce.engine.graphics;
+package ce.core.graphics;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import ce.engine.Util;
-import ce.engine.maths.Vector2f;
-import ce.engine.maths.Vector3f;
+import ce.core.Util;
+import ce.core.maths.Vector2f;
+import ce.core.maths.Vector3f;
 
 public class OBJLoader {
 

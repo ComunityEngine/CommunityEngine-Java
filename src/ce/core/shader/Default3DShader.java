@@ -1,8 +1,8 @@
-package ce.engine.shader;
+package ce.core.shader;
 
-import ce.engine.Camera;
-import ce.engine.maths.Matrix4f;
-import ce.engine.maths.Vector3f;
+import ce.core.Camera;
+import ce.core.maths.Matrix4f;
+import ce.core.maths.Vector3f;
 
 public class Default3DShader extends Shader {
 	

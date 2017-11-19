@@ -1,4 +1,4 @@
-package ce.engine;
+package ce.core;
 
 import java.nio.IntBuffer;
 

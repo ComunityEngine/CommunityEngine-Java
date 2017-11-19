@@ -1,20 +1,19 @@
-package ce.engine.maths;
+package ce.core.maths;
 
 public class Vector3f {
-	
+
 	public float x;
 	public float y;
 	public float z;
-	
-	public Vector3f()
-	{
+
+	public Vector3f() {
 		this(0, 0, 0);
 	}
-	
+
 	public Vector3f(float value) {
 		this(value, value, value);
 	}
-	
+
 	public Vector3f(float x, float y, float z) {
 		this.x = x;
 		this.y = y;
@@ -24,31 +23,77 @@ public class Vector3f {
 	public Vector3f(Vector3f vector) {
 		this(vector.x, vector.y, vector.z);
 	}
-	
-	public float length()
-	{
+
+	public float length() {
 		return (float) Math.sqrt((x * x) + (y * y) + (z * z));
 	}
-	
-	public void normalize()
-	{
+
+	public void normalize() {
 		this.x = x / length();
 		this.y = y / length();
 		this.z = z / length();
 	}
-	
+
+	public void add(Vector3f vector) {
+		this.x += vector.x;
+		this.y += vector.y;
+		this.z += vector.z;
+	}
+
+	public void add(float x, float y, float z) {
+		this.x += x;
+		this.y += y;
+		this.z += z;
+	}
+
+	public void sub(Vector3f vector) {
+		this.x -= vector.x;
+		this.y -= vector.y;
+		this.z -= vector.z;
+	}
+
+	public void sub(float x, float y) {
+		this.x -= x;
+		this.y -= y;
+		this.z -= z;
+	}
+
+	public void mul(Vector3f vector) {
+		this.x *= vector.x;
+		this.y *= vector.y;
+		this.z *= vector.z;
+	}
+
+	public void mul(float x, float y) {
+		this.x *= x;
+		this.y *= y;
+		this.z *= z;
+	}
+
+	public void div(Vector3f vector) {
+		this.x /= vector.x;
+		this.y /= vector.y;
+		this.z /= vector.z;
+	}
+
+	public void div(float x, float y) {
+		this.x /= x;
+		this.y /= y;
+		this.z /= z;
+	}
+
 	public void set(float value) {
 		this.x = value;
 		this.y = value;
 		this.z = value;
 	}
-	
+
 	public void set(float x, float y, float z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
-	
+
 	public void set(Vector3f vector) {
 		this.x = vector.x;
 		this.y = vector.y;

@@ -1,6 +1,6 @@
-package ce.engine.graphics;
+package ce.core.graphics;
 
-import ce.engine.maths.Vector3f;
+import ce.core.maths.Vector3f;
 
 public abstract class GameObject {
 	

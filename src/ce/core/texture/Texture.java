@@ -1,4 +1,4 @@
-package ce.engine.texture;
+package ce.core.texture;
 
 import org.lwjgl.opengl.GL11;
 

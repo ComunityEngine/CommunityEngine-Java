@@ -1,4 +1,4 @@
-package ce.engine.maths;
+package ce.core.maths;
 
 public class Vector2f {
 	
@@ -32,6 +32,46 @@ public class Vector2f {
 	{
 		this.x = x / length();
 		this.y = y / length();
+	}
+	
+	public void add(Vector2f vector) {
+		this.x += vector.x;
+		this.y += vector.y;
+	}
+	
+	public void add(float x, float y) {
+		this.x += x;
+		this.y += y;
+	}
+	
+	public void sub(Vector2f vector) {
+		this.x -= vector.x;
+		this.y -= vector.y;
+	}
+	
+	public void sub(float x, float y) {
+		this.x -= x;
+		this.y -= y;
+	}
+	
+	public void mul(Vector2f vector) {
+		this.x *= vector.x;
+		this.y *= vector.y;
+	}
+	
+	public void mul(float x, float y) {
+		this.x *= x;
+		this.y *= y;
+	}
+	
+	public void div(Vector2f vector) {
+		this.x /= vector.x;
+		this.y /= vector.y;
+	}
+	
+	public void div(float x, float y) {
+		this.x /= x;
+		this.y /= y;
 	}
 	
 	public void set(float value) {

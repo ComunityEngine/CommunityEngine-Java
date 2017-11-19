@@ -1,8 +1,8 @@
-package ce.engine;
+package ce.core;
 
-import ce.engine.maths.Matrix4f;
-import ce.engine.maths.Vector2f;
-import ce.engine.maths.Vector3f;
+import ce.core.maths.Matrix4f;
+import ce.core.maths.Vector2f;
+import ce.core.maths.Vector3f;
 
 public class Camera {
 	public float y_height = 0;
