@@ -71,8 +71,6 @@ public class EngineTester {
 				System.out.println("PRESS");
 			}else if(Input.getKey(window, Key.KEY_E) == State.RELEASE) {
 				System.out.println("Release");
-			}else if(Input.getKey(window, Key.KEY_UNKNOWN) == State.UNKNOWN) {
-				System.out.println("UNKNOWN");
 			}
 			
 			shader.bind();
