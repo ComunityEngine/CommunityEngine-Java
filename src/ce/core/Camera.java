@@ -1,10 +1,21 @@
 package ce.core;
 
+import java.nio.DoubleBuffer;
+
+import org.lwjgl.BufferUtils;
+import org.lwjgl.glfw.GLFW;
+
+import ce.core.input.Input;
+import ce.core.input.Key;
+import ce.core.input.State;
 import ce.core.maths.Matrix4f;
 import ce.core.maths.Vector2f;
 import ce.core.maths.Vector3f;
 
 public class Camera {
+
+	private long window;
+
 	public float y_height = 0;
 	private Vector3f position = new Vector3f(0, y_height, 0);
 	private float pitch = 0;
@@ -21,17 +32,18 @@ public class Camera {
 	private boolean mouseGrabbed = false;
 	private Vector2f previousPos = new Vector2f(-1, -1);
 	private Vector2f curPos = new Vector2f(0, 0);
-	
+
 	private Matrix4f projectionMatrix;
-	
+
 	public Camera(long window, float fov, float z_near, float z_far) {
+		this.window = window;
 		this.FOV = fov;
 		this.z_near = z_near;
 		this.z_far = z_far;
 
 		createProjectionMatrix(Window.getWidth(window), Window.getHeight(window));
 	}
-	
+
 	protected void createProjectionMatrix(int width, int height) {
 		// width / height
 		float aspectRatio = (float) width / height;
@@ -46,6 +58,70 @@ public class Camera {
 		projectionMatrix.m23 = -1;
 		projectionMatrix.m32 = -((2 * z_near * z_far) / frustum_length);
 		projectionMatrix.m33 = 0;
+	}
+	
+	public void update() {
+		float speed = 0.01f;
+		float x = 0;
+		float z = 0;
+//		float y = 0;
+		
+
+		if (Input.getMouse(window, Key.MOUSE_BUTTON_LEFT) == State.CLICKED) {
+			if(!mouseGrabbed)
+			{
+				grabCursor();
+			}else{
+				releaseCursor();
+			}
+		}
+		curPos = getCursorPos();
+		if (mouseGrabbed) {
+			double dx = curPos.x - previousPos.x;
+			double dy = curPos.y - previousPos.y;
+			yaw += dx * sensitivity;
+			pitch += dy * sensitivity;
+		}
+		previousPos.x = curPos.x;
+		previousPos.y = curPos.y;
+		
+		if (getPitch() > pitch_max) {
+			setPitch(pitch_max);
+		} else if (getPitch() < pitch_min) {
+			setPitch(pitch_min);
+		}
+		if(yaw > 360)
+		{
+			yaw = 0;
+		}else if(yaw < 0){
+			yaw = 360;
+		}
+	}
+
+	private Vector2f getCursorPos() {
+		DoubleBuffer xpos = BufferUtils.createDoubleBuffer(1);
+		DoubleBuffer ypos = BufferUtils.createDoubleBuffer(1);
+		xpos.rewind();
+		xpos.rewind();
+		GLFW.glfwGetCursorPos(window, xpos, ypos);
+
+		double x = xpos.get();
+		double y = ypos.get();
+
+		xpos.clear();
+		ypos.clear();
+		Vector2f result = new Vector2f((float) x, (float) y);
+		return result;
+	}
+
+	private void grabCursor() {
+		mouseGrabbed = true;
+		GLFW.glfwSetInputMode(window, GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_DISABLED);
+	}
+
+	private void releaseCursor() {
+		mouseGrabbed = false;
+		GLFW.glfwSetInputMode(window, GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_NORMAL);
 	}
 
 	public float getPitch() {
@@ -83,6 +159,5 @@ public class Camera {
 	public Matrix4f getProjectionMatrix() {
 		return projectionMatrix;
 	}
-	
-	
+
 }

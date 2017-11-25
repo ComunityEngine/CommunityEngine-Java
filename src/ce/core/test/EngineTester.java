@@ -88,6 +88,7 @@ public class EngineTester {
 				camera.getPosition().z += -Math.cos((camera.getYaw() + 90) * Math.PI / 180) * SPEED; // * Time.getDelta();
 			}
 
+			camera.update();
 			shader.bind();
 			shader.loadViewMatrix(camera);
 			{
