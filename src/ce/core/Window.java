@@ -10,7 +10,13 @@ import org.lwjgl.system.MemoryUtil;
 
 public class Window {
 	
-	public static long createWindow(int width, int height, String title) {
+	public long windowID;
+	
+	private Window(long id){
+		this.windowID = id;
+	}
+	
+	public static Window createWindow(int width, int height, String title) {
 		if(!GLFW.glfwInit()) {
 			throw new IllegalStateException();
 		}
@@ -29,48 +35,48 @@ public class Window {
 		GL.createCapabilities();
 		GLFW.glfwSwapInterval(1);
 		
-		return window;
+		return new Window(window);
 	}
 	
-	public static void enableDepthBuffer() {
+	public void enableDepthBuffer() {
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 	}
 
-	public static void disableDepthBuffer() {
+	public void disableDepthBuffer() {
 		GL11.glDisable(GL11.GL_DEPTH_TEST);
 	}
 	
-	public static boolean isCloseRequested(long window) {
+	public boolean isCloseRequested() {
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-		return !GLFW.glfwWindowShouldClose(window);
+		return !GLFW.glfwWindowShouldClose(windowID);
 	}
 	
-	public static void update(long window) {
-		GLFW.glfwSwapBuffers(window);
+	public void update() {
+		GLFW.glfwSwapBuffers(windowID);
 		GLFW.glfwPollEvents();
 	}
 	
-	public static void close(long window) {
-		GLFW.glfwDestroyWindow(window);
+	public void close() {
+		GLFW.glfwDestroyWindow(windowID);
 	}
 	
-	public static int getWidth(long window)
+	public int getWidth()
 	{
 		IntBuffer width = BufferUtils.createIntBuffer(1);
 		IntBuffer height = BufferUtils.createIntBuffer(1);
-		GLFW.glfwGetWindowSize(window, width, height);
+		GLFW.glfwGetWindowSize(windowID, width, height);
 		return width.get();
 	}
 	
-	public static int getHeight(long window) {
+	public int getHeight() {
 		IntBuffer width = BufferUtils.createIntBuffer(1);
 		IntBuffer height = BufferUtils.createIntBuffer(1);
-		GLFW.glfwGetWindowSize(window, width, height);
+		GLFW.glfwGetWindowSize(windowID, width, height);
 
 		return height.get();
 	}
 	
-	public static void disposeGLFW() {
+	public void disposeGLFW() {
 		GLFW.glfwTerminate();
 	}
 

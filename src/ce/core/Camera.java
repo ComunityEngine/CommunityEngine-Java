@@ -14,7 +14,7 @@ import ce.core.maths.Vector3f;
 
 public class Camera {
 
-	private long window;
+	private Window window;
 
 	public float y_height = 0;
 	private Vector3f position = new Vector3f(0, y_height, 0);
@@ -35,13 +35,13 @@ public class Camera {
 
 	private Matrix4f projectionMatrix;
 
-	public Camera(long window, float fov, float z_near, float z_far) {
+	public Camera(Window window, float fov, float z_near, float z_far) {
 		this.window = window;
 		this.FOV = fov;
 		this.z_near = z_near;
 		this.z_far = z_far;
 
-		createProjectionMatrix(Window.getWidth(window), Window.getHeight(window));
+		createProjectionMatrix(window.getWidth(), window.getHeight());
 	}
 
 	protected void createProjectionMatrix(int width, int height) {
@@ -103,7 +103,7 @@ public class Camera {
 		DoubleBuffer ypos = BufferUtils.createDoubleBuffer(1);
 		xpos.rewind();
 		xpos.rewind();
-		GLFW.glfwGetCursorPos(window, xpos, ypos);
+		GLFW.glfwGetCursorPos(window.windowID, xpos, ypos);
 
 		double x = xpos.get();
 		double y = ypos.get();
@@ -116,12 +116,12 @@ public class Camera {
 
 	private void grabCursor() {
 		mouseGrabbed = true;
-		GLFW.glfwSetInputMode(window, GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_DISABLED);
+		GLFW.glfwSetInputMode(window.windowID, GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_DISABLED);
 	}
 
 	private void releaseCursor() {
 		mouseGrabbed = false;
-		GLFW.glfwSetInputMode(window, GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_NORMAL);
+		GLFW.glfwSetInputMode(window.windowID, GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_NORMAL);
 	}
 
 	public float getPitch() {

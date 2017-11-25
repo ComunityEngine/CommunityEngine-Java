@@ -4,12 +4,14 @@ import java.util.ArrayList;
 
 import org.lwjgl.glfw.GLFW;
 
+import ce.core.Window;
+
 public class Input {
 
 	private static ArrayList<Key> downKeys = new ArrayList<Key>();
 
-	public static State getKey(long window, Key key) {
-		int state = GLFW.glfwGetKey(window, key.getKeyCode());
+	public static State getKey(Window window, Key key) {
+		int state = GLFW.glfwGetKey(window.windowID, key.getKeyCode());
 		if (state == 0) {
 			for (int i = downKeys.size() - 1; i >= 0; i--) {
 				if (downKeys.get(i).equals(key)) {
@@ -28,8 +30,8 @@ public class Input {
 
 	}
 
-	public static State getMouse(long window, Key key) {
-		int state = GLFW.glfwGetMouseButton(window, key.getKeyCode());
+	public static State getMouse(Window window, Key key) {
+		int state = GLFW.glfwGetMouseButton(window.windowID, key.getKeyCode());
 		if (state == 0) {
 			for (int i = downKeys.size() - 1; i >= 0; i--) {
 				if (downKeys.get(i).equals(key)) {
