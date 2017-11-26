@@ -7,12 +7,15 @@ import org.lwjgl.glfw.Callbacks;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWCursorEnterCallback;
 import org.lwjgl.glfw.GLFWCursorPosCallback;
+import org.lwjgl.glfw.GLFWKeyCallback;
+import org.lwjgl.glfw.GLFWMouseButtonCallback;
 import org.lwjgl.glfw.GLFWWindowPosCallback;
 import org.lwjgl.glfw.GLFWWindowSizeCallback;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.MemoryUtil;
 
+import ce.core.input.Input;
 import ce.core.maths.Vector2f;
 
 public class Window {
@@ -30,6 +33,10 @@ public class Window {
 	
 	private final GLFWCursorPosCallback cursorPosCallback;
 	private final Vector2f cursorPos = new Vector2f();
+	
+	private final GLFWMouseButtonCallback mouseButtonCallback;
+	
+	private final GLFWKeyCallback keyCallback;
 	
 	private Window(long id){
 		this.windowID = id;
@@ -60,6 +67,20 @@ public class Window {
 			}
 		};
 		GLFW.glfwSetCursorPosCallback(windowID, cursorPosCallback);
+		
+		mouseButtonCallback = new GLFWMouseButtonCallback() {
+			public void invoke(long window, int button, int action, int mods) {
+				Input.setKey(button, -1, action, mods);
+			}
+		};
+		GLFW.glfwSetMouseButtonCallback(windowID, mouseButtonCallback);
+		
+		keyCallback = new GLFWKeyCallback() {
+			public void invoke(long window, int key, int scancode, int action, int mods) {
+				Input.setKey(key, scancode, action, mods);
+			}
+		};
+		GLFW.glfwSetKeyCallback(windowID, keyCallback);
 		
 		IntBuffer width = BufferUtils.createIntBuffer(1);
 		IntBuffer height = BufferUtils.createIntBuffer(1);
@@ -107,6 +128,7 @@ public class Window {
 	}
 	
 	public void update() {
+		Input.clearFrame();
 		GLFW.glfwSwapBuffers(windowID);
 		GLFW.glfwPollEvents();
 	}

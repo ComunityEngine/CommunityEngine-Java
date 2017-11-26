@@ -67,7 +67,7 @@ public class Camera {
 //		float y = 0;
 		
 
-		if (Input.getMouse(window, Key.MOUSE_BUTTON_LEFT) == State.CLICKED) {
+		if (Input.isMouseClicked(Key.MOUSE_BUTTON_LEFT)) {
 			if(!mouseGrabbed)
 			{
 				grabCursor();
