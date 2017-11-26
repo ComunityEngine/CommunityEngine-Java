@@ -79,7 +79,7 @@ public class Vector2f {
 		this.y = value;
 	}
 	
-	public void set(float x, float y, float z) {
+	public void set(float x, float y) {
 		this.x = x;
 		this.y = y;
 	}
@@ -103,5 +103,10 @@ public class Vector2f {
 
 	public void setY(float y) {
 		this.y = y;
+	}
+	
+	public String toString()
+	{
+		return "Vector2f: [" + x + ", " + y  + "]";
 	}
 }

@@ -123,4 +123,8 @@ public class Vector3f {
 	public void setZ(float z) {
 		this.z = z;
 	}
+
+	public String toString() {
+		return "Vector3f: [" + x + ", " + y + ", " + z + "]";
+	}
 }
