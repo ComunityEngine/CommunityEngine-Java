@@ -2,7 +2,6 @@ package ce.core;
 
 import ce.core.graphics.GameObject;
 import ce.core.graphics.Mesh;
-import ce.core.input.Input;
 import ce.core.input.Key;
 import ce.core.maths.Transform;
 import ce.core.maths.Vector3f;
@@ -72,41 +71,45 @@ public class EngineApp {
 
 	private void loop() {
 		while (window.isCloseRequested()) {
-			if (Input.isKeyReleased(Key.KEY_ESCAPE)) {
+			if (window.input.isKeyReleased(Key.KEY_ESCAPE)) {
 				break;
 			}
 
 			float SPEED = 0.01f;
-			if (Input.isKeyDown(Key.KEY_W)) {
+			if (window.input.isKeyDown(Key.KEY_W)) {
 				camera.getPosition().x += Math.sin(camera.getYaw() * Math.PI / 180) * SPEED; // * Time.getDelta();
 				camera.getPosition().z += -Math.cos(camera.getYaw() * Math.PI / 180) * SPEED; // * Time.getDelta();
 			}
 
-			if (Input.isKeyDown(Key.KEY_S)) {
+			if (window.input.isKeyDown(Key.KEY_S)) {
 				camera.getPosition().x -= Math.sin(camera.getYaw() * Math.PI / 180) * SPEED; // * Time.getDelta();
 				camera.getPosition().z -= -Math.cos(camera.getYaw() * Math.PI / 180) * SPEED; // * Time.getDelta();
 			}
 
-			if (Input.isKeyDown(Key.KEY_A)) {
+			if (window.input.isKeyDown(Key.KEY_A)) {
 				camera.getPosition().x += Math.sin((camera.getYaw() - 90) * Math.PI / 180) * SPEED; // * Time.getDelta();
 				camera.getPosition().z += -Math.cos((camera.getYaw() - 90) * Math.PI / 180) * SPEED; // * Time.getDelta();
 			}
 
-			if (Input.isKeyDown(Key.KEY_D)) {
+			if (window.input.isKeyDown(Key.KEY_D)) {
 				camera.getPosition().x += Math.sin((camera.getYaw() + 90) * Math.PI / 180) * SPEED; // * Time.getDelta();
 				camera.getPosition().z += -Math.cos((camera.getYaw() + 90) * Math.PI / 180) * SPEED; // * Time.getDelta();
 			}
 
-			if (Input.isKeyDown(Key.KEY_G)) {
-				System.out.println("Pressing G");
-			}
+//			if (window.input.isKeyDown(Key.KEY_G)) {
+//				System.out.println("Holding G");
+//			}
 
-			if (Input.isKeyReleased(Key.KEY_G)) {
+			if (window.input.isKeyPressed(Key.KEY_G)) {
 				System.out.println("Realse G");
 			}
 
-			if (Input.isKeyReleased(Key.KEY_H)) {
+			if (window.input.isKeyReleased(Key.KEY_H)) {
 				System.out.println("Release H");
+			}
+			
+			if(window.input.isKeyPressed(Key.KEY_L)) {
+				System.out.println("Pressed L");
 			}
 
 			camera.update();

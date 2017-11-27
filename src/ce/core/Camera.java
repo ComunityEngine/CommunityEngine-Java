@@ -7,6 +7,7 @@ import org.lwjgl.glfw.GLFW;
 
 import ce.core.input.Input;
 import ce.core.input.Key;
+import ce.core.input.MouseButton;
 import ce.core.input.State;
 import ce.core.maths.Matrix4f;
 import ce.core.maths.Vector2f;
@@ -67,7 +68,7 @@ public class Camera {
 //		float y = 0;
 		
 
-		if (Input.isMouseClicked(Key.MOUSE_BUTTON_LEFT)) {
+		if (window.input.isMouseClicked(MouseButton.MOUSE_BUTTON_LEFT)) {
 			if(!mouseGrabbed)
 			{
 				grabCursor();

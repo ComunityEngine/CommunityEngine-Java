@@ -2,102 +2,108 @@ package ce.core.input;
 
 import java.util.ArrayList;
 
-import org.lwjgl.glfw.GLFW;
-
 public class Input {
+	private ArrayList<InputData> downKeys = new ArrayList<InputData>();
+	private ArrayList<InputData> releasedKeys = new ArrayList<InputData>();
+	private ArrayList<InputData> pressedKeys = new ArrayList<InputData>();
+	
+	public Input() {
+	}
 
-	// private static ArrayList<Key> downKeys = new ArrayList<Key>();
-	//
-	//
-	// public static State getKey(Window window, Key key) {
-	// int state = GLFW.glfwGetKey(window.windowID, key.getKeyCode());
-	// if (state == 0) {
-	// for (int i = downKeys.size() - 1; i >= 0; i--) {
-	// if (downKeys.get(i).equals(key)) {
-	// downKeys.remove(key);
-	// return State.CLICKED;
-	// }
-	// }
-	// return State.RELEASE;
-	// } else if (state == 1) {
-	// if (!downKeys.contains(key)) {
-	// downKeys.add(key);
-	// }
-	// return State.PRESS;
-	// }
-	// return State.UNKNOWN;
-	//
-	// }
-	//
-	// public static State getMouse(Window window, Key key) {
-	// int state = GLFW.glfwGetMouseButton(window.windowID, key.getKeyCode());
-	// if (state == 0) {
-	// for (int i = downKeys.size() - 1; i >= 0; i--) {
-	// if (downKeys.get(i).equals(key)) {
-	// downKeys.remove(key);
-	// return State.CLICKED;
-	// }
-	// }
-	// return State.RELEASE;
-	// } else if (state == 1) {
-	// if (!downKeys.contains(key)) {
-	// downKeys.add(key);
-	// }
-	// return State.PRESS;
-	// }
-	// return State.UNKNOWN;
-	// }
+	public void setKeyDown(int key) {
+		downKeys.add(new InputData(key));
+	}
 
-	private static ArrayList<KeyState> keyStates = new ArrayList<KeyState>();
+	public void setKeyUp(int key) {
+		for (int i = downKeys.size() - 1; i >= 0; i--) {
+			int value = downKeys.get(i).getValue();
+			if (value == key) {
+				releasedKeys.add(downKeys.get(i));
+				downKeys.remove(i);
+				break;
+			}
+		}
+
+		for (int i = pressedKeys.size() - 1; i >= 0; i--) {
+			if (pressedKeys.get(i).getValue() == key) {
+				pressedKeys.remove(i);
+			}
+		}
+	}
+
+	public boolean isKeyDown(Key key) {
+		for (int i = downKeys.size() - 1; i >= 0; i--) {
+			if (downKeys.get(i).getValue() == key.getKeyCode()) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public boolean isKeyReleased(Key key) {
+		for (int i = releasedKeys.size() - 1; i >= 0; i--) {
+			if (releasedKeys.get(i).getValue() == key.getKeyCode()) {
+				releasedKeys.remove(i);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean isKeyPressed(Key key) {
+		if (isKeyDown(key)) {
+			for (int i = pressedKeys.size() - 1; i >= 0; i--) {
+				if (pressedKeys.get(i).getValue() == key.getKeyCode()) {
+					return false;
+				}
+			}
+			pressedKeys.add(new InputData(key.getKeyCode()));
+			return true;
+		}
+		return false;
+	}
+
+	public boolean isMouseClicked(MouseButton button) {
+		if (isMouseDown(button)) {
+			for (int i = pressedKeys.size() - 1; i >= 0; i--) {
+				if (pressedKeys.get(i).getValue() == button.getKeyCode()) {
+					return false;
+				}
+			}
+			pressedKeys.add(new InputData(button.getKeyCode()));
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean isMouseDown(MouseButton button)
+	{
+		for (int i = downKeys.size() - 1; i >= 0; i--) {
+			if (downKeys.get(i).getValue() == button.getKeyCode()) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+	
+	public boolean isMouseReleased(MouseButton button) {
+		for (int i = releasedKeys.size() - 1; i >= 0; i--) {
+			if (releasedKeys.get(i).getValue() == button.getKeyCode()) {
+				releasedKeys.remove(i);
+				return true;
+			}
+		}
+		return false;
+	}
 
 	/**
-	 * clears all the key states from the last frame (This method is called
+	 * clears all the released key states which would keep increasing if the released method wastn't called manually from the last frame (This method is called
 	 * automatically in Window.update();)
 	 */
-	public static void clearFrame() {
-		System.out.println(keyStates.size());
-		keyStates.clear();
-	}
-
-	public static boolean isMouseClicked(Key key) {
-		for (int i = 0; i < keyStates.size(); i++) {
-			if (keyStates.get(i).key == key.getKeyCode() && keyStates.get(i).action == GLFW.GLFW_PRESS) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public static boolean isKeyPressed(Key key) {
-		for (int i = 0; i < keyStates.size(); i++) {
-			if (keyStates.get(i).key == key.getKeyCode() && keyStates.get(i).action == GLFW.GLFW_PRESS) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public static boolean isKeyDown(Key key) {
-		for (int i = 0; i < keyStates.size(); i++) {
-			if (keyStates.get(i).key == key.getKeyCode()) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public static boolean isKeyReleased(Key key) {
-		for (int i = 0; i < keyStates.size(); i++) {
-			if (keyStates.get(i).key == key.getKeyCode() && keyStates.get(i).action == GLFW.GLFW_RELEASE) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public static void setKey(int key, int scancode, int action, int mods) {
-		System.out.println("Key: " + key + " scancode: " + scancode + " action: " + action + " mods: " + mods);
-		keyStates.add(new KeyState(key, scancode, action, mods));
+	public void reset() {
+		releasedKeys.clear();
 	}
 
 }
