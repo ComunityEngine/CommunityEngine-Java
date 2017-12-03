@@ -1,8 +1,8 @@
 package ce.core.ui;
 
-import static org.lwjgl.nanovg.NanoVGGL3.*;
 import static org.lwjgl.nanovg.NanoVG.*;
 
+import org.lwjgl.nanovg.NanoVGGL3;
 import org.lwjgl.system.MemoryUtil;
 
 public class NanoGui {
@@ -17,19 +17,18 @@ public class NanoGui {
 		if(initialized) {
 			return;
 		}
-		vg = nvgCreate((0) | NVG_STENCIL_STROKES | NVG_DEBUG);
+		vg = NanoVGGL3.nvgCreate((0) | NanoVGGL3.NVG_STENCIL_STROKES | NanoVGGL3.NVG_DEBUG);
 		
 		if(vg == MemoryUtil.NULL) {
 			throw new RuntimeException("Could not init nanoVG");
 		}
 		
 		initialized = true;
-		System.out.println(vg);
 	}
 	
 	public static void enable(int windowWidth, int windowHeight)
 	{
-		nvgBeginFrame(vg, windowWidth, windowHeight, 1);
+		nvgBeginFrame(vg, windowWidth, windowHeight, 1f);
 	}
 	
 	public static void disable() {
@@ -45,7 +44,7 @@ public class NanoGui {
 	}
 	
 	public static void dispose() {
-		nvgDelete(vg);
+		NanoVGGL3.nvgDelete(vg);
 	}
 
 	public static long getVG() {

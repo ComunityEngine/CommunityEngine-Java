@@ -10,8 +10,6 @@ import ce.core.texture.Texture;
 import ce.core.texture.TextureLoader;
 import ce.core.ui.NanoGui;
 import ce.core.ui.Node;
-import ce.core.ui.Parent;
-import ce.core.ui.Scene;
 
 public class EngineApp {
 
@@ -74,7 +72,6 @@ public class EngineApp {
 		};
 		object.setTextureID(defaultTexture.getID());
 		
-		Scene scene = new Scene(new Parent());
 		NanoGui.init();
 		node = new Node() {
 			public void update() {
@@ -151,6 +148,8 @@ public class EngineApp {
 	}
 
 	private void dispose() {
+		NanoGui.disable();
+		NanoGui.dispose();
 		defaultTexture.dispose();
 		mesh.disable();
 		mesh.dispose();

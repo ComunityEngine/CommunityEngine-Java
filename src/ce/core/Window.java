@@ -7,6 +7,7 @@ import org.lwjgl.glfw.Callbacks;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWCursorEnterCallback;
 import org.lwjgl.glfw.GLFWCursorPosCallback;
+import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWMouseButtonCallback;
 import org.lwjgl.glfw.GLFWWindowPosCallback;
@@ -21,6 +22,8 @@ import ce.core.maths.Vector2f;
 public class Window {
 
 	public long windowID;
+	
+	private static GLFWErrorCallback errorCallback = null;
 
 	private final GLFWWindowPosCallback posCallback;
 	private final Vector2f windowPos = new Vector2f();
@@ -43,7 +46,7 @@ public class Window {
 	private Window(long id) {
 		this.windowID = id;
 		input = new Input();
-
+		
 		posCallback = new GLFWWindowPosCallback() {
 			public void invoke(long window, int xpos, int ypos) {
 				windowPos.set(xpos, ypos);
@@ -104,6 +107,13 @@ public class Window {
 		if (!GLFW.glfwInit()) {
 			throw new IllegalStateException();
 		}
+		
+		errorCallback = new GLFWErrorCallback() {
+			public void invoke(int error, long description) {
+				System.err.println("["+ error + "] " + description);
+			}
+		};
+		GLFW.glfwSetErrorCallback(errorCallback);
 
 		long window = GLFW.glfwCreateWindow(width, height, title, MemoryUtil.NULL, MemoryUtil.NULL);
 
