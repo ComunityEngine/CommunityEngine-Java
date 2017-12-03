@@ -21,6 +21,7 @@ import ce.core.maths.Vector2f;
 
 public class Window {
 
+	private Scene scene;
 	public long windowID;
 	
 	private static GLFWErrorCallback errorCallback = null;
@@ -103,7 +104,7 @@ public class Window {
 		windowSize.set(width.get(), height.get());
 	}
 
-	public static Window createWindow(int width, int height, String title) {
+	public static Window createWindow(Scene scene, String title) {
 		if (!GLFW.glfwInit()) {
 			throw new IllegalStateException();
 		}
@@ -115,7 +116,7 @@ public class Window {
 		};
 		GLFW.glfwSetErrorCallback(errorCallback);
 
-		long window = GLFW.glfwCreateWindow(width, height, title, MemoryUtil.NULL, MemoryUtil.NULL);
+		long window = GLFW.glfwCreateWindow(scene.getWidth(), scene.getHeight(), title, MemoryUtil.NULL, MemoryUtil.NULL);
 
 		if (window == MemoryUtil.NULL) {
 			System.err.println("Window returned NULL");
@@ -128,7 +129,16 @@ public class Window {
 		GL.createCapabilities();
 		GLFW.glfwSwapInterval(1);
 
+		scene.setGLinitilized();
 		return new Window(window);
+	}
+	
+	public Scene getScene() {
+		return scene;
+	}
+	
+	public void setScene(Scene scene) {
+		this.scene = scene;
 	}
 
 	public void enableDepthBuffer() {

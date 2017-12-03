@@ -14,6 +14,8 @@ import ce.core.ui.Node;
 public class EngineApp {
 
 	private Window window;
+	private Scene scene;
+	
 	private Camera camera;
 	private Default3DShader shader;
 	private Texture defaultTexture;
@@ -24,7 +26,9 @@ public class EngineApp {
 
 	public EngineApp(int width, int height) {
 		System.out.println(Version.getEngineVersion());
-		window = Window.createWindow(width, height, "[CE] CommunityEngine");
+		scene = new Scene(width, height);
+		window = Window.createWindow(scene, "[CE] CommunityEngine");
+		scene.setClearColor(1, 0.5f, 0, 1);
 		init();
 		loop();
 		dispose();
