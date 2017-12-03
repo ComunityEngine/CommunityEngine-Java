@@ -8,6 +8,10 @@ import ce.core.maths.Vector3f;
 import ce.core.shader.Default3DShader;
 import ce.core.texture.Texture;
 import ce.core.texture.TextureLoader;
+import ce.core.ui.NanoGui;
+import ce.core.ui.Node;
+import ce.core.ui.Parent;
+import ce.core.ui.Scene;
 
 public class EngineApp {
 
@@ -17,6 +21,8 @@ public class EngineApp {
 	private Texture defaultTexture;
 	private Mesh mesh;
 	private GameObject object;
+	
+	public Node node;	
 
 	public EngineApp(int width, int height) {
 		System.out.println(Version.getEngineVersion());
@@ -67,6 +73,14 @@ public class EngineApp {
 			}
 		};
 		object.setTextureID(defaultTexture.getID());
+		
+		Scene scene = new Scene(new Parent());
+		NanoGui.init();
+		node = new Node() {
+			public void update() {
+				System.out.println("Updating...");
+			}
+		};
 	}
 
 	private void loop() {
@@ -123,6 +137,15 @@ public class EngineApp {
 				mesh.disable();
 			}
 			shader.unbind();
+			
+			
+			NanoGui.enable(window.getWidth(), window.getHeight());
+			node.beginPath();
+			node.rect(10, 10, 150, 150);
+			node.fillColor(1, 0, 0);
+			node.fill();
+			NanoGui.disable();
+			
 			window.update();
 		}
 	}
