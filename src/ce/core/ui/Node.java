@@ -15,11 +15,19 @@ public abstract class Node {
 	protected float height;
 
 	private NVGColor color;
-	private NVGPaint paint;
+	public NVGPaint paint;
 
-	public Node() {
+	public Node(float x, float y, float width, float height) {
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
 		color = NVGColor.create();
 		paint = NVGPaint.create();
+	}
+
+	public Node() {
+		this(0, 0, 100, 100);
 	}
 
 	public abstract void update();
@@ -33,6 +41,22 @@ public abstract class Node {
 	}
 
 	public void fillColor(float r, float g, float b, float a) {
+		if(r > 1) {
+			r = r / 255f;
+		}
+		
+		if(g > 1) {
+			g = g / 255f;
+		}
+		
+		if(b > 1) {
+			b = b / 255f;
+		}
+		
+		if(a > 1) {
+			a = a / 255f;
+		}
+		
 		color.r(r);
 		color.g(g);
 		color.b(b);
@@ -42,6 +66,30 @@ public abstract class Node {
 
 	public void fillPaint() {
 		nvgFillPaint(NanoGui.getVG(), paint);
+	}
+	
+	public NVGColor rgba(float r, float g, float b, float a) {
+		if(r > 1) {
+			r = r / 255f;
+		}
+		
+		if(g > 1) {
+			g = g / 255f;
+		}
+		
+		if(b > 1) {
+			b = b / 255f;
+		}
+		
+		if(a > 1) {
+			a = a / 255f;
+		}
+		
+		color.r(r);
+		color.g(g);
+		color.b(b);
+		color.a(a);
+		return color;
 	}
 
 	public void circle(float x, float y, float radius) {
@@ -59,7 +107,7 @@ public abstract class Node {
 	public void stroke() {
 		nvgStroke(NanoGui.getVG());
 	}
-
+	
 	public void rect(float x, float y, float width, float height) {
 		nvgRect(NanoGui.getVG(), x, y, width, height);
 	}

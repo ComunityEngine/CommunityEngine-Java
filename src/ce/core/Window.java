@@ -148,6 +148,14 @@ public class Window {
 	public void disableDepthBuffer() {
 		GL11.glDisable(GL11.GL_DEPTH_TEST);
 	}
+	
+	public void enableStencilBuffer() {
+		GL11.glEnable(GL11.GL_STENCIL_TEST);
+	}
+	
+	public void disableStencilBuffer() {
+		GL11.glDisable(GL11.GL_STENCIL_TEST);
+	}
 
 	/**
 	 * Checks if the window has been set to close
@@ -155,7 +163,7 @@ public class Window {
 	 * @return
 	 */
 	public boolean isCloseRequested() {
-		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT | GL11.GL_STENCIL_BUFFER_BIT);
 		return !GLFW.glfwWindowShouldClose(windowID);
 	}
 

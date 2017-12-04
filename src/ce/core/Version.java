@@ -8,7 +8,7 @@ public class Version {
 	/**
 	 * This number will increase after every build change regardless, even if the 'ENGINE_MINOR' and/or 'ENGINE_MAJOR' Changes!
 	 */
-	private static final int ENGINE_BUILD = 9;
+	private static final int ENGINE_BUILD = 10;
 	private static final String ENGINE_VERSION = "CommunityEngine Version: [" + ENGINE_MAJOR + "." + ENGINE_MINOR + "." + ENGINE_BUILD + "]";
 	
 	public static String getEngineVersion()

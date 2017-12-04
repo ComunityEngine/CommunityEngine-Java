@@ -17,7 +17,7 @@ public class NanoGui {
 		if(initialized) {
 			return;
 		}
-		vg = NanoVGGL3.nvgCreate((0) | NanoVGGL3.NVG_STENCIL_STROKES | NanoVGGL3.NVG_DEBUG);
+		vg = NanoVGGL3.nvgCreate(NanoVGGL3.NVG_STENCIL_STROKES);
 		
 		if(vg == MemoryUtil.NULL) {
 			throw new RuntimeException("Could not init nanoVG");

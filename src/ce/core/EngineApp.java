@@ -1,5 +1,7 @@
 package ce.core;
 
+import java.util.ArrayList;
+
 import ce.core.graphics.GameObject;
 import ce.core.graphics.Mesh;
 import ce.core.input.Key;
@@ -8,6 +10,7 @@ import ce.core.maths.Vector3f;
 import ce.core.shader.Default3DShader;
 import ce.core.texture.Texture;
 import ce.core.texture.TextureLoader;
+import ce.core.ui.InternalWindow;
 import ce.core.ui.NanoGui;
 import ce.core.ui.Node;
 
@@ -22,7 +25,7 @@ public class EngineApp {
 	private Mesh mesh;
 	private GameObject object;
 	
-	public Node node;	
+	private ArrayList<Node> nodes = new ArrayList<Node>();
 
 	public EngineApp(int width, int height) {
 		System.out.println(Version.getEngineVersion());
@@ -36,9 +39,10 @@ public class EngineApp {
 
 	private void init() {
 		window.enableDepthBuffer();
+		window.enableStencilBuffer();
 
 		camera = new Camera(window, 70f, 0.1f, 1000f);
-		camera.setPosition(new Vector3f(0, 0, 2));
+		camera.setPosition(new Vector3f(0, 0, 20));
 		shader = new Default3DShader();
 		shader.bind();
 		shader.loadMatrix(shader.getProjectionMatrix(), camera.getProjectionMatrix());
@@ -77,11 +81,7 @@ public class EngineApp {
 		object.setTextureID(defaultTexture.getID());
 		
 		NanoGui.init();
-		node = new Node() {
-			public void update() {
-				System.out.println("Updating...");
-			}
-		};
+		nodes.add(new InternalWindow(50, 50, 300, 400));
 	}
 
 	private void loop() {
@@ -141,10 +141,9 @@ public class EngineApp {
 			
 			
 			NanoGui.enable(window.getWidth(), window.getHeight());
-			node.beginPath();
-			node.rect(10, 10, 150, 150);
-			node.fillColor(1, 0, 0);
-			node.fill();
+			for(Node n : nodes) {
+				n.update();
+			}
 			NanoGui.disable();
 			
 			window.update();
