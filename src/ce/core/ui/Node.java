@@ -35,6 +35,11 @@ public abstract class Node {
 	public void beginPath() {
 		nvgBeginPath(NanoGui.getVG());
 	}
+	
+	public void translate(float x, float y)
+	{
+		nvgTranslate(NanoGui.getVG(), x, y);
+	}
 
 	public void fillColor(float r, float g, float b) {
 		fillColor(r, g, b, 1);
@@ -66,6 +71,16 @@ public abstract class Node {
 
 	public void fillPaint() {
 		nvgFillPaint(NanoGui.getVG(), paint);
+	}
+	
+	public void save()
+	{
+		nvgSave(NanoGui.getVG());
+	}
+	
+	public void restore()
+	{
+		nvgRestore(NanoGui.getVG());
 	}
 	
 	public NVGColor rgba(float r, float g, float b, float a) {

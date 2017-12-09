@@ -7,11 +7,11 @@ import java.nio.ByteBuffer;
 import org.lwjgl.system.MemoryStack;
 
 public class InternalWindow extends Node {
-
+	
 	public InternalWindow(float x, float y, float width, float height) {
 		super(x, y, width, height);
 	}
-
+	
 	@Override
 	public void update() {
 		drawWindow();

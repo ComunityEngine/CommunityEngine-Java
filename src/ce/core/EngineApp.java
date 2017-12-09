@@ -13,20 +13,26 @@ import ce.core.texture.TextureLoader;
 import ce.core.ui.InternalWindow;
 import ce.core.ui.NanoGui;
 import ce.core.ui.Node;
+import ce.core.ui.Rectangle;
+import ce.core.ui.UIScene;
+import ce.core.ui.VBox;
 
 public class EngineApp {
 
 	private Window window;
 	private Scene scene;
-	
+
 	private Camera camera;
 	private Default3DShader shader;
 	private Texture defaultTexture;
 	private Mesh mesh;
 	private GameObject object;
-	
-	private ArrayList<Node> nodes = new ArrayList<Node>();
 
+	private ArrayList<Node> nodes = new ArrayList<Node>();
+	
+	private VBox vbox;
+	private UIScene uiScene;
+	
 	public EngineApp(int width, int height) {
 		System.out.println(Version.getEngineVersion());
 		scene = new Scene(width, height);
@@ -79,13 +85,31 @@ public class EngineApp {
 			}
 		};
 		object.setTextureID(defaultTexture.getID());
-		
+
 		NanoGui.init();
 		nodes.add(new InternalWindow(50, 50, 300, 400));
+		
+		vbox = new VBox();
+		uiScene = new UIScene(vbox);
+		vbox.add(new Rectangle(10, 10, 100, 25));
+		vbox.add(new Rectangle(10, 10, 100, 25));
+		vbox.add(new Rectangle(10, 10, 100, 25));
+		vbox.add(new Rectangle(10, 10, 100, 25));
+		vbox.add(new Rectangle(10, 10, 100, 25));
+		vbox.add(new Rectangle(10, 10, 100, 25));
+		vbox.add(new Rectangle(10, 10, 100, 25));
+		vbox.add(new Rectangle(10, 10, 100, 25));
+		vbox.add(new Rectangle(10, 10, 100, 25));
+		vbox.add(new Rectangle(10, 10, 100, 25));
+		vbox.add(new Rectangle(10, 10, 100, 25));
+		vbox.add(new Rectangle(10, 10, 100, 25));
+		vbox.add(new Rectangle(10, 10, 100, 25));
+		vbox.add(new Rectangle(10, 10, 100, 25));
+		vbox.add(new Rectangle(10, 10, 100, 25));
 	}
 
 	private void loop() {
-		while (window.isCloseRequested()) {
+		while (!window.isCloseRequested()) {
 			if (window.input.isKeyReleased(Key.KEY_ESCAPE)) {
 				break;
 			}
@@ -111,9 +135,9 @@ public class EngineApp {
 				camera.getPosition().z += -Math.cos((camera.getYaw() + 90) * Math.PI / 180) * SPEED; // * Time.getDelta();
 			}
 
-//			if (window.input.isKeyDown(Key.KEY_G)) {
-//				System.out.println("Holding G");
-//			}
+			// if (window.input.isKeyDown(Key.KEY_G)) {
+			// System.out.println("Holding G");
+			// }
 
 			if (window.input.isKeyPressed(Key.KEY_G)) {
 				System.out.println("Realse G");
@@ -122,8 +146,8 @@ public class EngineApp {
 			if (window.input.isKeyReleased(Key.KEY_H)) {
 				System.out.println("Release H");
 			}
-			
-			if(window.input.isKeyPressed(Key.KEY_L)) {
+
+			if (window.input.isKeyPressed(Key.KEY_L)) {
 				System.out.println("Pressed L");
 			}
 
@@ -138,14 +162,14 @@ public class EngineApp {
 				mesh.disable();
 			}
 			shader.unbind();
-			
-			
+
 			NanoGui.enable(window.getWidth(), window.getHeight());
-			for(Node n : nodes) {
-				n.update();
-			}
+//			for (Node n : nodes) {
+//				n.update();
+//			}
+			uiScene.update();
 			NanoGui.disable();
-			
+
 			window.update();
 		}
 	}
